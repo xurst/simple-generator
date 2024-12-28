@@ -1,0 +1,217 @@
+body {
+    background-color: #000;
+    color: white;
+    font-family: "IBM Plex Mono", monospace;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-box-container {
+    background-color: #000;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.input-container input {
+    flex: 1;
+    padding: 10px;
+    font-family: "IBM Plex Mono", monospace;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.input-container input:focus {
+    border-color: white;
+}
+
+.input-container input[type="number"]::-webkit-inner-spin-button,
+.input-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-container input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.1s;
+    font-size: 14px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+#reset-button {
+    width: 100%;
+}
+
+button:hover {
+    border-color: white;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#generate-button {
+    flex: 0 0 auto;
+}
+
+.output-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.output-container textarea {
+    flex: 1;
+    padding: 10px;
+    font-family: "IBM Plex Mono", monospace;
+    background-color: transparent;
+    color: #E1E1E1;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    outline: none;
+    resize: vertical;
+    height: 60px;
+    font-size: 14px;
+}
+
+.settings-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+    background-color: transparent;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.settings-left,
+.settings-right {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.custom-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 18px;
+    width: 18px;
+    background-color: transparent;
+    border: 2px solid #3c3c3c;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+}
+
+.custom-checkbox:hover input~.checkmark {
+    border-color: white;
+}
+
+.custom-checkbox input:checked~.checkmark {
+    background-color: white;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox span:not(.checkmark) {
+    margin-left: 5px;
+    color: #E1E1E1;
+    line-height: 18px;
+}
+
+footer {
+    margin-top: 20px;
+    color: #888;
+    font-size: 12px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

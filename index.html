@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xurst's password generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="text-box-container">
+        <h1>xurst's password generator</h1>
+        <div class="input-container">
+            <input type="number" id="password-length" min="4" max="500" value="12" placeholder="Password Length">
+            <button id="generate-button">generate</button>
+        </div>
+        <div class="output-container">
+            <textarea id="password-output" readonly></textarea>
+            <button id="copy-button">copy</button>
+        </div>
+        <button id="reset-button">reset</button>
+        <div class="settings-container">
+            <label class="custom-checkbox">
+                <input type="checkbox" id="include-uppercase" checked>
+                <span class="checkmark"></span>
+                <span>uppercase</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" id="include-lowercase" checked>
+                <span class="checkmark"></span>
+                <span>lowercase</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" id="include-numbers" checked>
+                <span class="checkmark"></span>
+                <span>numbers</span>
+            </label>
+            <label class="custom-checkbox">
+                <input type="checkbox" id="include-symbols" checked>
+                <span class="checkmark"></span>
+                <span>symbols</span>
+            </label>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
