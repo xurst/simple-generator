@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const numberChars = '0123456789';
     const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
+    //test
+
     function loadSettings() {
         const savedLength = localStorage.getItem('passwordLength');
         if (savedLength) passwordLength.value = savedLength;
