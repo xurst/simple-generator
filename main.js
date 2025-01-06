@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const length = Math.min(parseInt(passwordLength.value), 500);
+        const length = parseInt(passwordLength.value);
         let password = '';
 
         for (let i = 0; i < length; i++) {
