@@ -1,0 +1,190 @@
+/* sidebar.css */
+
+/* Animation for sidebar cards */
+@keyframes cardAdd {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Left sidebar (history) */
+  .settings-toggle {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 0.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .settings-toggle i {
+    font-size: 1.75rem;
+    color: #ffffff;
+  }
+  
+  .settings-toggle:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .settings-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  
+  .settings-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .settings-content {
+    padding: 1.5rem;
+    padding-top: 5rem;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Make history scrollable */
+  #history-list {
+    max-height: calc(100vh - 10rem);
+    overflow-y: auto;
+  }
+  
+  /* Category heading within sidebar */
+  .settings-category {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    margin: 1.5rem 0 0.75rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+  
+  /* History card */
+  .project-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(60, 60, 60, 0.5);
+    border-radius: 13px;
+    padding: 15px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s ease;
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+    margin-left: -5px; /* move slightly left */
+  }
+  
+  .project-card.added {
+    animation: cardAdd 0.4s ease forwards;
+  }
+  
+  .project-card:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .project-card a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  
+  .project-card a:hover {
+    color: white;
+  }
+  
+  /* Date display (click to copy) */
+  .last-updated {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* Right sidebar (email panel) */
+  .email-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 0.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .email-toggle i {
+    font-size: 1.75rem;
+    color: #ffffff;
+  }
+  
+  .email-toggle:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .email-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  
+  .email-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .email-content {
+    padding: 1.5rem;
+    padding-top: 5rem;
+    color: #fff;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Make inbox scrollable */
+  #inbox-list {
+    max-height: calc(100vh - 14rem);
+    overflow-y: auto;
+  }
+  
+  /* Sidebar responsive adjustments */
+  @media (max-width: 600px) {
+    .settings-panel,
+    .email-panel {
+      width: 80%;
+    }
+  }  

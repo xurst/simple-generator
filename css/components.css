@@ -1,0 +1,139 @@
+/* components.css */
+
+/* Main container */
+.text-box-container {
+    background-color: #000;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+  }
+  
+  /* Title styling */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-family: "ibm plex mono", monospace;
+    font-weight: bold;
+    animation: fadein 1s ease-in-out forwards;
+  }
+  
+  /* Fade in animation for components */
+  @keyframes fadein {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Input and form styles */
+  .input-container {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input-container input {
+    flex: 1;
+    padding: 10px;
+    font-family: "ibm plex mono", monospace;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .input-container input:focus {
+    border-color: white;
+  }
+  
+  .input-container input[type="number"]::-webkit-inner-spin-button,
+  .input-container input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  
+  /* Output container */
+  .output-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .output-container textarea {
+    flex: 1;
+    padding: 10px;
+    font-family: "ibm plex mono", monospace;
+    background-color: transparent;
+    color: #e1e1e1;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    outline: none;
+    resize: vertical;
+    height: 60px; /* default height */
+    font-size: 14px;
+  }
+  
+  /* Button and generate buttons styles */
+  .generate-buttons-container {
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .generate-buttons-container button {
+    width: 200px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid #3c3c3c;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.1s;
+    font-size: 14px;
+    font-family: "ibm plex mono", monospace;
+  }
+  
+  button:hover {
+    border-color: white;
+  }
+  
+  button:active {
+    transform: scale(0.98);
+  }
+  
+  /* Full-width reset button */
+  #reset-button {
+    width: 100%;
+  }
+  
+  /* Responsive adjustments for components */
+  @media (max-width: 600px) {
+    .text-box-container {
+      width: 95%;
+      padding: 15px;
+    }
+    .generate-buttons-container button {
+      width: 100px;
+    }
+  }  

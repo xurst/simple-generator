@@ -1,49 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xurst's password generator</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xurst's generator</title>
+  <link rel="stylesheet" href="css/body.css">
+  <link rel="stylesheet" href="css/notifications.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-    <div class="text-box-container">
-        <h1>xurst's password generator</h1>
-        <div class="input-container">
-            <input type="number" id="password-length" min="4" max="500" value="12" placeholder="Password Length">
-            <button id="generate-button">generate</button>
-        </div>
-        <div class="output-container">
-            <textarea id="password-output" readonly></textarea>
-            <button id="copy-button">copy</button>
-        </div>
-        <button id="reset-button">reset</button>
-        <div class="settings-container">
-            <label class="custom-checkbox">
-                <input type="checkbox" id="include-uppercase" checked>
-                <span class="checkmark"></span>
-                <span>uppercase</span>
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="include-lowercase" checked>
-                <span class="checkmark"></span>
-                <span>lowercase</span>
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="include-numbers" checked>
-                <span class="checkmark"></span>
-                <span>numbers</span>
-            </label>
-            <label class="custom-checkbox">
-                <input type="checkbox" id="include-symbols" checked>
-                <span class="checkmark"></span>
-                <span>symbols</span>
-            </label>
-        </div>
+  <!-- left sidebar: history -->
+  <button class="settings-toggle" id="sidebar-toggle"><i class="fa-solid fa-history"></i></button>
+  <div class="settings-panel" id="sidebar-panel">
+    <div class="settings-content">
+      <div class="settings-category">history</div>
+      <div id="history-list"></div>
     </div>
-    <script src="main.js"></script>
-</body>
+  </div>
 
+  <!-- right sidebar: "gmail" style inbox -->
+  <button class="email-toggle" id="email-toggle"><i class="fa-solid fa-envelope"></i></button>
+  <div class="email-panel" id="email-panel">
+    <div class="email-content">
+      <div class="settings-category">gmail</div>
+      <button id="trash-all-mail" style="margin-bottom:10px;">trash all mail</button>
+      <div id="inbox-list">no new mails.</div>
+    </div>
+  </div>
+
+  <!-- main generator box -->
+  <div class="text-box-container">
+    <h1>xurst's generator</h1>
+    <div class="input-container">
+      <input
+        type="number"
+        id="password-length"
+        min="10"
+        max="500"
+        value="12"
+        placeholder="password length"
+      >
+    </div>
+    <div class="generate-buttons-container">
+      <button id="generate-password-button">generate password</button>
+      <button id="generate-email-button">generate email</button>
+    </div>
+    <div class="output-container">
+      <textarea id="password-output" readonly></textarea>
+      <button id="copy-button" title="Copy">copy</button>
+    </div>
+    <button id="reset-button">reset</button>
+    <div class="settings-container">
+      <label class="custom-checkbox">
+        <input type="checkbox" id="include-uppercase" checked>
+        <span class="checkmark"></span>
+        <span>uppercase</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" id="include-lowercase" checked>
+        <span class="checkmark"></span>
+        <span>lowercase</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" id="include-numbers" checked>
+        <span class="checkmark"></span>
+        <span>numbers</span>
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" id="include-symbols" checked>
+        <span class="checkmark"></span>
+        <span>symbols</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- notification stack for multiple messages -->
+  <div id="notifications-stack" class="notification-stack"></div>
+
+  <script src="main.js"></script>
+</body>
 </html>

@@ -1,0 +1,115 @@
+/* Container that holds multiple notifications in a stack */
+.notification-stack {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+    z-index: 9999;
+}
+
+/* Individual notification element */
+.notification-container {
+    position: relative;
+    background: #000000;
+    color: #f5f5f7;
+    padding: 14px 40px 14px 20px;
+    border-radius: 12px;
+    width: 300px;
+    min-height: 48px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    transform: translateY(20px);
+    transition:
+        transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.3s ease,
+        background-color 0.2s ease;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 8px 24px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.show-notification {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification-message {
+    margin: 0;
+    opacity: 0.95;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    flex-grow: 1;
+}
+
+/* close button */
+.close-notification {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    color: #f5f5f7;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.close-notification:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* icons or type indicator */
+.notification-type-indicator {
+    margin-right: 12px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    margin-top: -3.5px;
+}
+
+/* Type-specific colors */
+.notification-success {
+    background: linear-gradient(145deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+}
+.notification-success .notification-type-indicator {
+    color: #4CAF50;
+}
+
+.notification-error {
+    background: linear-gradient(145deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
+}
+.notification-error .notification-type-indicator {
+    color: #F44336;
+}
+
+.notification-warning {
+    background: linear-gradient(145deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+}
+.notification-warning .notification-type-indicator {
+    color: #FFC107;
+}
+
+.notification-info {
+    background: linear-gradient(145deg, rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.05));
+}
+.notification-info .notification-type-indicator {
+    color: #2196F3;
+}
