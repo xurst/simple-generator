@@ -1,22 +1,12 @@
-/* sidebar.css */
+/* =========================
+   SIDEBARS / HISTORY / INBOX
+   ========================= */
 
-/* Animation for sidebar cards */
-@keyframes cardAdd {
-    from {
-      transform: scale(0.95);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-  
-  /* Left sidebar (history) */
-  .settings-toggle {
+/* Left sidebar toggle */
+.settings-toggle {
     position: fixed;
     top: 1.5rem;
-    left: 1.5rem;
+    left: 1rem;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.2);
     cursor: pointer;
@@ -34,6 +24,7 @@
     background: rgba(0, 0, 0, 0.3);
   }
   
+  /* Left sidebar panel */
   .settings-panel {
     position: fixed;
     top: 0;
@@ -63,13 +54,13 @@
     transition: transform 0.3s ease;
   }
   
-  /* Make history scrollable */
+  /* History list inside the panel */
   #history-list {
     max-height: calc(100vh - 10rem);
     overflow-y: auto;
   }
   
-  /* Category heading within sidebar */
+  /* Category heading inside sidebars */
   .settings-category {
     color: rgba(255, 255, 255, 0.5);
     font-size: 0.85rem;
@@ -77,6 +68,18 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 600;
+  }
+  
+  /* Animate new cards */
+  @keyframes cardAdd {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
   
   /* History card */
@@ -90,7 +93,6 @@
     transition: border-color 0.3s ease;
     margin-bottom: 10px;
     overflow-wrap: break-word;
-    margin-left: -5px; /* move slightly left */
   }
   
   .project-card.added {
@@ -114,7 +116,7 @@
     color: white;
   }
   
-  /* Date display (click to copy) */
+  /* Date with (click to copy) */
   .last-updated {
     margin-top: 12px;
     font-size: 0.8rem;
@@ -124,7 +126,7 @@
     gap: 0.5rem;
   }
   
-  /* Right sidebar (email panel) */
+  /* Right sidebar toggle */
   .email-toggle {
     position: fixed;
     top: 1.5rem;
@@ -146,6 +148,7 @@
     background: rgba(0, 0, 0, 0.3);
   }
   
+  /* Right sidebar panel */
   .email-panel {
     position: fixed;
     top: 0;
@@ -180,11 +183,18 @@
     max-height: calc(100vh - 14rem);
     overflow-y: auto;
   }
-  
-  /* Sidebar responsive adjustments */
+
+  /* MOBILE ADJUSTMENTS FOR SIDEBARS */
   @media (max-width: 600px) {
     .settings-panel,
     .email-panel {
       width: 80%;
     }
-  }  
+    .settings-toggle {
+      left: 1rem;
+    }
+    .email-toggle {
+      right: 1rem;
+    }
+  }
+  

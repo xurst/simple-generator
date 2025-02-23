@@ -15,20 +15,22 @@
   <button class="settings-toggle" id="sidebar-toggle"><i class="fa-solid fa-history"></i></button>
   <div class="settings-panel" id="sidebar-panel">
     <div class="settings-content">
-      <div class="settings-category">history</div>
+      <div class="settings-category">history (click cards to copy)</div>
       <div id="history-list"></div>
     </div>
   </div>
 
-  <!-- right sidebar: "gmail" style inbox -->
-  <button class="email-toggle" id="email-toggle"><i class="fa-solid fa-envelope"></i></button>
-  <div class="email-panel" id="email-panel">
-    <div class="email-content">
-      <div class="settings-category">gmail</div>
-      <button id="trash-all-mail" style="margin-bottom:10px;">trash all mail</button>
-      <div id="inbox-list">no new mails.</div>
-    </div>
+<!-- right sidebar: "gmail" style inbox -->
+<button class="email-toggle" id="email-toggle"><i class="fa-solid fa-envelope"></i></button>
+<div class="email-panel" id="email-panel">
+  <div class="email-content">
+    <div class="settings-category">gmail</div>
+    <button id="trash-all-mail" style="margin-bottom:10px;">trash all mail</button>
+    <!-- NEW REFRESH BUTTON -->
+    <button id="refresh-mail" style="margin-bottom:10px;">refresh inbox</button>
+    <div id="inbox-list">no new mails.</div>
   </div>
+</div>
 
   <!-- main generator box -->
   <div class="text-box-container">
@@ -37,21 +39,23 @@
       <input
         type="number"
         id="password-length"
-        min="10"
+        min="12"
         max="500"
         value="12"
         placeholder="password length"
       >
     </div>
     <div class="generate-buttons-container">
-      <button id="generate-password-button">generate password</button>
       <button id="generate-email-button">generate email</button>
+      <button id="generate-password-button">generate password</button>
     </div>
     <div class="output-container">
       <textarea id="password-output" readonly></textarea>
       <button id="copy-button" title="Copy">copy</button>
     </div>
     <button id="reset-button">reset</button>
+
+    <!-- Settings container -->
     <div class="settings-container">
       <label class="custom-checkbox">
         <input type="checkbox" id="include-uppercase" checked>
@@ -73,12 +77,27 @@
         <span class="checkmark"></span>
         <span>symbols</span>
       </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" id="auto-copy">
+        <span class="checkmark"></span>
+        <span>auto copy</span>
+      </label>
+
+      <!-- expiry input -->
+      <div class="input-container">
+        <input type="number" id="expiry-value" min="1" value="24" style="width:60px;">
+        <select id="expiry-unit">
+          <option value="minutes">minutes</option>
+          <option value="hours" selected>hours</option>
+          <option value="days">days</option>
+        </select>
+      </div>
     </div>
   </div>
 
   <!-- notification stack for multiple messages -->
   <div id="notifications-stack" class="notification-stack"></div>
 
-  <script src="main.js"></script>
+  <script type="module" src="main.js"></script>
 </body>
 </html>

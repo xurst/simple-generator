@@ -1,0 +1,7 @@
+{
+    "uppercase": true,
+    "lowercase": true,
+    "numbers": true,
+    "symbols": true,
+    "autoCopy": false
+}
