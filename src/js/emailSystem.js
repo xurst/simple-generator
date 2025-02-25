@@ -27,7 +27,7 @@ export async function generateEmail(modes) {
       body: JSON.stringify({ address: email, password: password }),
     });
     let account = await createResponse.json();
-    if (!account.id) throw new Error("failed to create temp email.");
+    if (!account.id) throw new Error("failed to create temp email. try generating another email.");
 
     let authResponse = await fetch("https://api.mail.tm/token", {
       method: "POST",

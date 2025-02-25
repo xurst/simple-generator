@@ -3,4 +3,4 @@ u can manage ur inboxes and stuff ya
 
 [https://xurst.github.io/simple-generator](https://xurst.github.io/simple-generator/)
 
-![alt text](https://i.imgur.com/NP6uRWF.png)
+![alt text](https://i.imgur.com/Fwp9h8E.png)
