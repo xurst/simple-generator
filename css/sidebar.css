@@ -193,11 +193,7 @@
   }
 
   /* MOBILE ADJUSTMENTS FOR SIDEBARS */
-  @media (max-width: 600px) {
-    .settings-panel,
-    .email-panel {
-      width: 80%;
-    }
+  @media (max-width: 37.5rem) {
     .settings-toggle {
       left: 1rem;
     }
@@ -206,3 +202,25 @@
     }
   }
   
+  @media (max-width: 43.375rem) {
+    .settings-panel,
+    .email-panel {
+      width: 40%;
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .email-toggle,
+    .settings-toggle {
+      top: 5px;
+    }
+  }
+
+  @media (max-width: 26.438rem) {
+    .email-toggle,
+    .settings-toggle {
+      height: 45px;
+      font-size: 0rem;
+      top: 2px;
+    }
+  }

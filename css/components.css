@@ -190,3 +190,16 @@ button:active {
   color: #e1e1e1;
   line-height: 18px;
 }
+
+@media (max-width: 28.375rem) {
+  .text-box-container {
+    width: 85%;
+  }
+}
+
+@media (max-width: 22.625rem) {
+  .text-box-container {
+    width: 83%;
+  }
+}
+

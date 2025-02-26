@@ -32,3 +32,53 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Responsive Breakpoints */
+
+/* Mobile phone size (esm) */
+@media (width >= 23rem) {
+  /* Add styles for sm breakpoint here */
+}
+
+/* Mobile phone landscape (esmL) */
+@media (width >= 50rem) {
+  /* Add styles for sm breakpoint here */
+}
+
+/* Tablet size (md) */
+@media (width >= 48rem) {
+  /* Add styles for md breakpoint here */
+}
+
+/* Tablet landscape size (mdL) */
+@media (width >= 64rem) {
+  /* Add styles for md breakpoint here */
+}
+
+
+/* Extras
+
+/* Small (sm) */
+@media (width >= 40rem) {
+  /* Add styles for sm breakpoint here */
+}
+
+/* Medium (md) */
+@media (width >= 48rem) {
+  /* Add styles for md breakpoint here */
+}
+
+/* Large (lg) */
+@media (width >= 64rem) {
+  /* Add styles for lg breakpoint here */
+}
+
+/* Extra Large (xl) */
+@media (width >= 80rem) {
+  /* Add styles for xl breakpoint here */
+}
+
+/* 2X Large (2xl) */
+@media (width >= 96rem) {
+  /* Add styles for 2xl breakpoint here */
+}
