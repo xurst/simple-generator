@@ -3,7 +3,7 @@
    Exports functions to main.js
 */
 
-import { addToHistory } from './historySystem.js';
+import { addToHistory, updateHistoryUI } from './historySystem.js';
 
 const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -49,4 +49,5 @@ export function generatePassword(modes) {
   }
 
   addToHistory('password', password, modes);
+  updateHistoryUI();
 }

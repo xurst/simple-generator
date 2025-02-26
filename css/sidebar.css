@@ -184,6 +184,14 @@
     overflow-y: auto;
   }
 
+  #trash-all-mail {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  #refresh-mail {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
   /* MOBILE ADJUSTMENTS FOR SIDEBARS */
   @media (max-width: 600px) {
     .settings-panel,

@@ -14,19 +14,18 @@ let expiryCheckInterval = null;
 export function initHistory(passwordOutput) {
   outputRef = passwordOutput;
 
-  // Unchanged
   if (expiryCheckInterval) {
     clearInterval(expiryCheckInterval);
   }
+  // Clean every 5s to remove expired entries
   expiryCheckInterval = setInterval(() => {
     cleanupHistoryData();
     saveHistoryData();
     updateHistoryUI();
-  }, 1000); // 1-second interval
+  }, 5000);
 }
 
 export function loadHistoryData() {
-  // Unchanged
   const saved = localStorage.getItem('historyRecords');
   if (saved) {
     historyRecords = JSON.parse(saved);
@@ -34,7 +33,6 @@ export function loadHistoryData() {
 }
 
 export function saveHistoryData() {
-  // Unchanged
   localStorage.setItem('historyRecords', JSON.stringify(historyRecords));
 }
 
@@ -42,7 +40,6 @@ export function saveHistoryData() {
  * Remove items whose expiresAt is in the past.
  */
 export function cleanupHistoryData() {
-  // Unchanged
   const nowMs = Date.now();
   historyRecords = historyRecords.filter(record => {
     const expMs = new Date(record.expiresAt).getTime();
@@ -61,10 +58,9 @@ export function updateHistoryUI() {
     const expiresMs = new Date(record.expiresAt).getTime();
     const timeLeftMs = expiresMs - nowMs;
     if (timeLeftMs <= 0) {
-      return; // Skip expired
+      return;
     }
 
-    // Convert milliseconds into days/hours/minutes
     let secondsLeft = Math.floor(timeLeftMs / 1000);
     const days = Math.floor(secondsLeft / 86400);
     secondsLeft %= 86400;
@@ -77,7 +73,6 @@ export function updateHistoryUI() {
     if (days > 0 || hours > 0) timeLeftString += `${hours}h `;
     timeLeftString += `${minutes}m`;
 
-    // Create card
     const card = document.createElement('div');
     card.className = 'project-card';
     if (record.isNew) {
@@ -85,14 +80,11 @@ export function updateHistoryUI() {
       record.isNew = false;
     }
 
-    // Determine display text for link
-    // If record.value is an object with an 'email' field, show that
     const displayValue =
       typeof record.value === 'object' && record.value.email
         ? record.value.email
         : record.value;
 
-    // On click, copy just the email if it's an object
     card.addEventListener('click', () => {
       const textToCopy =
         typeof record.value === 'object' && record.value.email
@@ -110,13 +102,11 @@ export function updateHistoryUI() {
         });
     });
 
-    // Link text
     const link = document.createElement('a');
     link.href = '#';
     link.textContent = `${record.type}: ${displayValue}`;
     card.appendChild(link);
 
-    // Last updated info
     const lastUpdated = document.createElement('div');
     lastUpdated.className = 'last-updated';
     lastUpdated.textContent = `${record.dateDisplay} (${timeLeftString} left)`;
@@ -132,7 +122,6 @@ export function updateHistoryUI() {
 export function addToHistory(type, value, modes) {
   const now = new Date();
 
-  // Unchanged
   let expiryMs = 0;
   const val = parseInt(modes.expiryValue, 10) || 1;
   const unit = modes.expiryUnit || 'hours';

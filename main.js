@@ -3,7 +3,7 @@
    Loads modes.json, sets up event listeners, calls sub-modules.
 */
 
-import { initNotifications } from "./src/js/notificationSystem.js";
+import { showNotification } from "./src/js/notificationSystem.js";
 import {
   initHistory,
   loadHistoryData,
@@ -15,18 +15,19 @@ import {
   generatePassword,
   applyGenerationSettings,
 } from "./src/js/generation.js";
-import { generateEmail, initInboxSystem, refreshInbox, trashAllMail } from "./src/js/emailSystem.js";
+import {
+  generateEmail,
+  initInboxSystem,
+  refreshInbox,
+  trashAllMail,
+} from "./src/js/emailSystem.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  initNotifications();
-
-  // Attempt to load from /modes.json first
   let modes = {};
   try {
     const res = await fetch("/modes.json");
     modes = await res.json();
   } catch {
-    // fallback if /modes.json not found
     modes = {
       uppercase: true,
       lowercase: true,
@@ -36,14 +37,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
   }
 
-  // Merge with localStorage if present
   const localModes = localStorage.getItem("modes");
   if (localModes) {
     const userModes = JSON.parse(localModes);
     Object.assign(modes, userModes);
   }
 
-  // DOM references
   const generatePasswordButton = document.getElementById(
     "generate-password-button"
   );
@@ -58,11 +57,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const includeSymbols = document.getElementById("include-symbols");
   const autoCopyCheckbox = document.getElementById("auto-copy");
 
-  // Expiry inputs
   const expiryValueInput = document.getElementById("expiry-value");
   const expiryUnitSelect = document.getElementById("expiry-unit");
 
-  // Initialize or apply mode settings to UI
   includeUppercase.checked = modes.uppercase;
   includeLowercase.checked = modes.lowercase;
   includeNumbers.checked = modes.numbers;
@@ -80,7 +77,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     modes.expiryUnit = expiryUnitSelect.value;
   }
 
-  // Sync changes to localStorage
   function saveModes(m) {
     localStorage.setItem("modes", JSON.stringify(m));
   }
@@ -114,12 +110,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     saveModes(modes);
   });
 
-  // Immediately persist loaded or default modes
   saveModes(modes);
-
   applyGenerationSettings(modes);
 
-  // Enforce numeric input for password length
   const passwordLengthInput = document.getElementById("password-length");
   passwordLengthInput.addEventListener("input", (e) => {
     e.target.value = e.target.value.replace(/[^0-9]/g, "");
@@ -133,16 +126,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // History init
   initHistory(passwordOutput);
   loadHistoryData();
   cleanupHistoryData();
-  updateHistoryUI();
+  updateHistoryUI(); 
 
-  // Initialize the inbox system
   initInboxSystem();
 
-  // Generate handlers
   generatePasswordButton.addEventListener("click", () => {
     generatePassword(modes);
   });
@@ -150,20 +140,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     generateEmail(modes);
   });
 
-  // Trash all mail
   const trashAllMailBtn = document.getElementById("trash-all-mail");
   trashAllMailBtn.addEventListener("click", () => {
     trashAllMail();
   });
 
-  // Refresh inbox
   const refreshMailBtn = document.getElementById("refresh-mail");
   refreshMailBtn.addEventListener("click", () => {
     refreshInbox();
-    window.showNotification("refreshed!", "success");
   });
 
-  // Copy output
   copyButton.addEventListener("click", () => {
     if (!passwordOutput.value.trim()) {
       window.showNotification("nothing to copy!", "error");
@@ -179,12 +165,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   });
 
-  // Reset
   resetButton.addEventListener("click", () => {
     passwordOutput.value = "";
+    showNotification("fields reset.", "info", 1000)
   });
 
-  // Sidebars
   const sidebarToggle = document.getElementById("sidebar-toggle");
   const sidebarPanel = document.getElementById("sidebar-panel");
   sidebarToggle.addEventListener("click", () => {
@@ -215,7 +200,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     emailPanel.classList.add("active");
   }
 
-  // Observe textarea resizing
   if ("ResizeObserver" in window) {
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {

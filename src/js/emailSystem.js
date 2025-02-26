@@ -3,39 +3,56 @@
    Exports functions to main.js
 */
 
-import { addToHistory } from "./historySystem.js";
+import { addToHistory, updateHistoryUI } from "./historySystem.js";
+
+/**
+ * Reusable fetch with retries to mitigate random JSON errors
+ */
+async function fetchJsonWithRetry(url, options = {}, tries = 3, delayMs = 1000) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      const response = await fetch(url, options);
+      return await response.json();
+    } catch (err) {
+      if (i === tries - 1) throw err;
+      await new Promise((res) => setTimeout(res, delayMs));
+    }
+  }
+}
 
 /* =========================
    GENERATE TEMPORARY EMAIL
    ========================= */
+
 export async function generateEmail(modes) {
   try {
-    let domainResponse = await fetch("https://api.mail.tm/domains");
-    let domainData = await domainResponse.json();
+    const domainData = await fetchJsonWithRetry("https://api.mail.tm/domains");
     if (!domainData["hydra:member"] || domainData["hydra:member"].length === 0) {
       throw new Error("No available domains.");
     }
 
-    let domain = domainData["hydra:member"][0].domain;
-    let randomUsername = `user${Math.floor(Math.random() * 100000)}`;
-    let email = `${randomUsername}@${domain}`;
-    let password = "SecureTempPass123";
+    const domain = domainData["hydra:member"][0].domain;
+    const randomUsername = `user${Math.floor(Math.random() * 100000)}`;
+    const email = `${randomUsername}@${domain}`;
+    const password = "SecureTempPass123";
 
-    let createResponse = await fetch("https://api.mail.tm/accounts", {
+    const createResponse = await fetchJsonWithRetry("https://api.mail.tm/accounts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ address: email, password: password }),
     });
-    let account = await createResponse.json();
-    if (!account.id) throw new Error("failed to create temp email. try generating another email.");
+    if (!createResponse.id) {
+      throw new Error("failed to create temp email. try generating another email.");
+    }
 
-    let authResponse = await fetch("https://api.mail.tm/token", {
+    const authResponse = await fetchJsonWithRetry("https://api.mail.tm/token", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ address: email, password: password }),
     });
-    let auth = await authResponse.json();
-    if (!auth.token) throw new Error("failed to authenticate new email.");
+    if (!authResponse.token) {
+      throw new Error("failed to authenticate new email.");
+    }
 
     const output = document.getElementById("password-output");
     output.value = email;
@@ -45,12 +62,16 @@ export async function generateEmail(modes) {
       window.showNotification("auto-copied!", "success");
     }
 
-    addToHistory("email", { email, token: auth.token }, modes);
+    addToHistory("email", { email, token: authResponse.token }, modes);
+    updateHistoryUI();
 
-    addMailAccount(email, auth.token);
+    addMailAccount(email, authResponse.token);
     await refreshInbox();
   } catch (error) {
-    window.showNotification(error.message || "error generating temporary email.", "error");
+    window.showNotification(
+      error.message || "error generating temporary email.",
+      "error"
+    );
   }
 }
 
@@ -94,6 +115,8 @@ export async function refreshInbox() {
   }
   saveMailAccountsToStorage();
   updateInboxUI();
+  /* NEW notification for refreshing */
+  window.showNotification("inbox refreshed!", "success");
 }
 
 async function fetchMessages(account) {
@@ -128,21 +151,18 @@ async function deleteMessage(account, messageId) {
 export async function trashAllMail() {
   for (const account of mailAccounts) {
     account.messages = await fetchMessages(account);
-    for (const msg of account.messages) {
-      await deleteMessage(account, msg.id);
-    }
+    await Promise.all(
+      account.messages.map((msg) => deleteMessage(account, msg.id))
+    );
     account.messages = [];
   }
   saveMailAccountsToStorage();
   updateInboxUI();
+  /* NEW notification for trashing all mail */
+  window.showNotification("trashed all mail.", "success");
   await refreshInbox();
-  window.showNotification("all mail has been trashed.", "success");
 }
 
-/**
- * Renders the inbox UI in the #inbox-list element.
- * Uses .project-card so it matches the history sidebar's look.
- */
 function updateInboxUI() {
   const inboxList = document.getElementById("inbox-list");
   if (!inboxList) return;
@@ -170,30 +190,25 @@ function updateInboxUI() {
       accountDiv.appendChild(emptyMsg);
     } else {
       account.messages.forEach((msg) => {
-        // Use the same 'project-card' class as the history sidebar
         const msgDiv = document.createElement("div");
         msgDiv.classList.add("project-card");
 
-        // Basic info line
         const infoLine = document.createElement("div");
-        infoLine.textContent = `From: ${msg.from?.[0]?.address || "unknown"} | Subject: ${
+        infoLine.textContent = `from: ${msg.from?.[0]?.address || "unknown"} | subject: ${
           msg.subject || "(no subject)"
         }`;
         msgDiv.appendChild(infoLine);
 
-        // Expandable content container
         const contentDiv = document.createElement("div");
         contentDiv.style.marginTop = "5px";
         contentDiv.style.display = msg.expanded ? "block" : "none";
         msgDiv.appendChild(contentDiv);
 
-        // Button container
         const btnContainer = document.createElement("div");
         btnContainer.style.marginTop = "5px";
         btnContainer.style.display = "flex";
         btnContainer.style.gap = "10px";
 
-        // View/Hide button
         const viewBtn = document.createElement("button");
         viewBtn.style.cursor = "pointer";
         updateViewButtonText(viewBtn, msg.expanded);
@@ -231,7 +246,6 @@ function updateInboxUI() {
         };
         btnContainer.appendChild(viewBtn);
 
-        // Trash button
         const trashBtn = document.createElement("button");
         trashBtn.textContent = "trash";
         trashBtn.style.cursor = "pointer";
@@ -239,8 +253,9 @@ function updateInboxUI() {
           await deleteMessage(account, msg.id);
           account.messages = account.messages.filter((m) => m.id !== msg.id);
           updateInboxUI();
-          await refreshInbox();
+          /* NEW notification for single-message trash */
           window.showNotification("trashed!", "success");
+          await refreshInbox();
         };
         btnContainer.appendChild(trashBtn);
 
