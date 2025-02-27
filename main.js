@@ -152,16 +152,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   copyButton.addEventListener("click", () => {
     if (!passwordOutput.value.trim()) {
-      window.showNotification("nothing to copy!", "error");
+      showNotification("nothing to copy!", "error");
       return;
     }
     navigator.clipboard
       .writeText(passwordOutput.value.trim())
       .then(() => {
-        window.showNotification("copied to clipboard!", "success");
+        showNotification("copied to clipboard!", "success");
       })
       .catch(() => {
-        window.showNotification("error copying to clipboard!", "error");
+        showNotification("error copying to clipboard!", "error");
       });
   });
 
