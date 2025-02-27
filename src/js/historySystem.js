@@ -95,10 +95,10 @@ export function updateHistoryUI() {
         .then(() => {
           record.lastCopied = new Date().toISOString();
           saveHistoryData();
-          window.showNotification('copied to clipboard!', 'success');
+          showNotification('copied to clipboard!', 'success');
         })
         .catch(() => {
-          window.showNotification('error copying to clipboard!', 'error');
+          showNotification('error copying to clipboard!', 'error');
         });
     });
 

@@ -29,7 +29,7 @@ export function generatePassword(modes) {
   if (modes.symbols)   chars += symbolChars;
 
   if (!chars) {
-    window.showNotification('please select at least one character type.', 'error');
+    showNotification('please select at least one character type.', 'error');
     return;
   }
 
@@ -44,8 +44,8 @@ export function generatePassword(modes) {
 
   if (modes.autoCopy) {
     navigator.clipboard.writeText(password)
-      .then(() => window.showNotification('auto-copied!', 'success'))
-      .catch(() => window.showNotification('failed to auto-copy!', 'error'));
+      .then(() => showNotification('auto-copied!', 'success'))
+      .catch(() => showNotification('failed to auto-copy!', 'error'));
   }
 
   addToHistory('password', password, modes);

@@ -59,7 +59,7 @@ export async function generateEmail(modes) {
 
     if (modes.autoCopy) {
       await navigator.clipboard.writeText(email);
-      window.showNotification("auto-copied!", "success");
+      showNotification("auto-copied!", "success");
     }
 
     addToHistory("email", { email, token: authResponse.token }, modes);
@@ -68,7 +68,7 @@ export async function generateEmail(modes) {
     addMailAccount(email, authResponse.token);
     await refreshInbox();
   } catch (error) {
-    window.showNotification(
+    showNotification(
       error.message || "error generating temporary email.",
       "error"
     );
@@ -116,7 +116,7 @@ export async function refreshInbox() {
   saveMailAccountsToStorage();
   updateInboxUI();
   /* NEW notification for refreshing */
-  window.showNotification("inbox refreshed!", "success");
+  showNotification("inbox refreshed!", "success");
 }
 
 async function fetchMessages(account) {
@@ -159,7 +159,7 @@ export async function trashAllMail() {
   saveMailAccountsToStorage();
   updateInboxUI();
   /* NEW notification for trashing all mail */
-  window.showNotification("trashed all mail.", "success");
+  showNotification("trashed all mail.", "success");
   await refreshInbox();
 }
 
@@ -254,7 +254,7 @@ function updateInboxUI() {
           account.messages = account.messages.filter((m) => m.id !== msg.id);
           updateInboxUI();
           /* NEW notification for single-message trash */
-          window.showNotification("trashed!", "success");
+          showNotification("trashed!", "success");
           await refreshInbox();
         };
         btnContainer.appendChild(trashBtn);
