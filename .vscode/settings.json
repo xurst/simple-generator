@@ -1,3 +1,7 @@
 {
-    "liveServer.settings.port": 5506
-  }  
+  "liveServer.settings.port": 7384,
+  "liveServer.settings.useLocalIp": true,
+  "liveServer.settings.host": "0.0.0.0",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.CustomBrowser": "chrome"
+}
